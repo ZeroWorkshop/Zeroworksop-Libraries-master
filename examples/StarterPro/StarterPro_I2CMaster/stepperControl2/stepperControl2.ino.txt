@@ -1,0 +1,35 @@
+#include    "ZeroWorkshop_lib.h"
+#include    "ZeroWorkshop_Macro_Definitions.h"
+#include "StarterProI2C.h"
+#include <Wire.h>
+#include <SoftwareSerial.h>
+
+StarterProI2C  StarterPro_S1(0x09);
+
+int ProgramSelected;
+int PS2_Button_Read[6];
+
+void setup() {
+  // put your setup code here, to run once:
+  StarterPro_S1.begin();
+   
+  Serial.begin(115200);
+  StartProgram(&ProgramSelected);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  if (_ButtonUp) {
+      StarterPro_S1.stepperControl(M1M2,200,1);
+  }
+  else if (_ButtonDown) {
+StarterPro_S1.stepperControl(M1M2,200,-1);
+  }
+  else if (_ButtonLeft) {
+StarterPro_S1.stepperControl(M3M4,200,1);
+  }
+  else if (_ButtonRight) {
+StarterPro_S1.stepperControl(M3M4,200,-1);
+  }
+}
